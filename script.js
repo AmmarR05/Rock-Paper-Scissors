@@ -19,44 +19,28 @@ function getHumanChoice(){
 }
 let humanScore = 0;
 let computerScore = 0;
+
 function playRound(humanCoice, computerChoice){
-    if (humanCoice == "rock" && computerChoice =="paper"){
-        computerScore++;
-        return "You lose! Paper beats Rock."
+    if(humanCoice==computerChoice){
+        return `its draw!  ${humanCoice} beats ${computerChoice}`;
     }
-    else if (humanCoice == "paper" && computerChoice == "rock") {
+
+    else if (humanCoice === "paper" && computerChoice === "rock" || humanCoice === "rock" && computerChoice === "scissors" || humanCoice === "scissors" && computerChoice === "paper"  ) {
         humanScore++;
-        return "You win! Paper beats Rock."
-    }
-    else if (humanCoice == "rock" && computerChoice == "scissors") {
-        humanScore++;
-        return "You win! rock beats scissors."
-    }
-    else if (humanCoice == "scissors" && computerChoice == "rock") {
-        computerScore++;
-        return "You lose! scissors beats Rock."
-    }
-    else if (humanCoice == "paper" && computerChoice == "scissors") {
-        computerScore++;
-        return "You lose! scissors beats paper."
-    }
-    else if (humanCoice == "scissors" && computerChoice == "paper") {
-        humanScore++;
-        return "You win! scissors beats paper."
-    }
-    else if (humanCoice == computerChoice){
-        return "its draw."
+        return `You win! ${humanCoice} beats ${computerChoice}.`
     }
     else {
-        return "plz coice (rock or scissors or paper)"
+        computerScore++;
+        return `You lose! ${humanCoice} beats ${computerChoice}.`
     }
+
 }
 function playGame(){
     for (let i = 1; i <= 5; i++) {
         console.log(`Round ${i} : `+playRound(getHumanChoice(), getComputerChoice())+`(-Your score: ${humanScore} , -Computer score: ${computerScore})`)
     }
     if(humanScore>computerScore){
-        console.log(`you are the wiiner (the total score(${humanScore}) computer score (${computerScore}))`)
+        console.log(`you are the wiiner (the total score : your score is (${humanScore})  computer score (${computerScore}))`)
     }
     else if(humanScore<computerScore){
         console.log(`you are the lose (the total score : your score is (${humanScore})  computer score (${computerScore}))`)
