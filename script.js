@@ -1,60 +1,75 @@
-function getComputerChoice(){
-    let randomChoiceOfComputer = Math.floor(Math.random() * 3 + 1);
-    let TheChoice=null;
-    if(randomChoiceOfComputer==1){
-        TheChoice = "rock"
-    }
-   else if (randomChoiceOfComputer == 2) {
-        TheChoice = "paper"
-    }
-   else if (randomChoiceOfComputer == 3) {
-        TheChoice = "scissors"
-    }
-    return TheChoice;
+function getComputerChoice() {
+    const random = Math.floor(Math.random() * 3) + 1;
+    if (random === 1)
+        return "rock";
+    if (random === 2)
+        return "paper";
+    return "scissors";
 }
-function getHumanChoice(){
-    let humanCoice= prompt("enter ur choice : ")
-    humanCoice = humanCoice.toLowerCase();
-    return humanCoice;
+
+
+function getHumanChoice() {
+    while (true) {
+        let humanChoice = prompt("Enter your choice (rock, paper, or scissors):");
+        humanChoice = humanChoice.toLowerCase();
+        if (["rock", "paper", "scissors"].includes(humanChoice)) {
+            return humanChoice;
+        }
+        alert("Invalid input. Please choose only: rock, paper, or scissors.");
+    }
 }
+
+
 let humanScore = 0;
 let computerScore = 0;
 
-function playRound(humanCoice, computerChoice){
-    if(humanCoice==computerChoice){
-        return `its draw!  ${humanCoice} beats ${computerChoice}`;
-    }
 
-    else if (humanCoice === "paper" && computerChoice === "rock" || humanCoice === "rock" && computerChoice === "scissors" || humanCoice === "scissors" && computerChoice === "paper"  ) {
+function playRound(humanChoice, computerChoice) {
+    if (humanChoice === computerChoice) {
+        return `It's a draw! ${humanChoice} equals ${computerChoice}.`;
+    } else if (
+        humanChoice === "paper" && computerChoice === "rock" ||
+        humanChoice === "rock" && computerChoice === "scissors" ||
+        humanChoice === "scissors" && computerChoice === "paper"
+    ) {
         humanScore++;
-        return `You win! ${humanCoice} beats ${computerChoice}.`
-    }
-    else {
+        return `You win! ${humanChoice} beats ${computerChoice}.`;
+    } else {
         computerScore++;
-        return `You lose! ${humanCoice} beats ${computerChoice}.`
-    }
-
-}
-function playGame(){
-    for (let i = 1; i <= 5; i++) {
-        console.log(`Round ${i} : `+playRound(getHumanChoice(), getComputerChoice())+`(-Your score: ${humanScore} , -Computer score: ${computerScore})`)
-    }
-    if(humanScore>computerScore){
-        console.log(`you are the wiiner (the total score : your score is (${humanScore})  computer score (${computerScore}))`)
-    }
-    else if(humanScore<computerScore){
-        console.log(`you are the lose (the total score : your score is (${humanScore})  computer score (${computerScore}))`)
-    }
-    else {
-        console.log(`the game is draw`)
+        return `You lose! ${computerChoice} beats ${humanChoice}.`;
     }
 }
-playGame()
 
 
+function playGame() {
+    humanScore = 0;
+    computerScore = 0;
+    let numberOfRound;
+        while(true){
+             numberOfRound = +prompt("Please enter how many rounds you'd like to play.")
+            if (numberOfRound < 0 || isNaN(numberOfRound)) {
+                alert("Oops! Thats not a valid number. Try again with a positive number.")
+            }
+            else {
+                break;
+            }
+        }
+    let i = 1 ;
+    while(i <= numberOfRound) {
+        console.log(`Round ${i}: ` + playRound(getHumanChoice(), getComputerChoice()) + ` (Your score: ${humanScore}, Computer score: ${computerScore})`);
+        if (humanScore === Math.floor((numberOfRound / 2)) + 1 || computerScore === Math.floor((numberOfRound / 2)) + 1) {
+            break;
+        }
+        i++;
+    }
+    if (humanScore > computerScore) {
+        console.log(`You are the winner! Final score: You (${humanScore}) - Computer (${computerScore})`);
+    } else if (humanScore < computerScore) {
+        console.log(`You lost! Final score: You (${humanScore}) - Computer (${computerScore})`);
+    } else {
+        console.log(`The game is a draw. Final score: You (${humanScore}) - Computer (${computerScore})`);
+    }
+    
+}
 
-
-
-
-
-
+playGame();
