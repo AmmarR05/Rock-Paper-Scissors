@@ -24,12 +24,13 @@ function playRound(humanChoice, computerChoice) {
             p.textContent = `It's a draw! ${humanChoice} equals ${computerChoice}.`;
             div.appendChild(p);
         } else if (humanChoice === "paper" && computerChoice === "rock" || humanChoice === "rock" && computerChoice === "scissors" || humanChoice === "scissors" && computerChoice === "paper") {
-            computetS++;
+            humanS++;
             p.textContent = `You win! ${humanChoice} beats ${computerChoice}.`;
             div.appendChild(p);
         }
 
         else {
+            computetS++;
             p.textContent = `You lose! ${computerChoice} beats ${humanChoice}.`;;
             div.appendChild(p);
 
@@ -43,7 +44,7 @@ let numOFRound = 5;
 let numOfClick = 0;
 
 let rem = document.querySelector(".reset-btn")
-rem.addEventListener("click", () => { numOfClick = 0, p.textContent ="Play smart! 5 rounds of Rock, Paper, Scissors ahead."}) 
+rem.addEventListener("click", () => { numOfClick = 0, humanS = 0, computetS=0, p.textContent ="Play smart! 5 rounds of Rock, Paper, Scissors ahead."}) 
 
 function playGame(choice) {
     
@@ -53,11 +54,11 @@ function playGame(choice) {
     }
     else {
         if(humanS>computetS)
-            p.textContent = `you win. the finle score (your score ${humanS} , coumputer score ${computetS}) `;
+            p.textContent = `you win. the final score (your score ${humanS} , coumputer score ${computetS}) `;
         else if(computetS>humanS)
-            p.textContent = `you lose. the finle score (your score ${humanS} , coumputer score ${computetS}) `;
+            p.textContent = `you lose. the final score (your score ${humanS} , coumputer score ${computetS}) `;
         else 
-            p.textContent = `its draw . the finle score (your score ${humanS} , coumputer score ${computetS}) `;
+            p.textContent = `its draw . the final score (your score ${humanS} , coumputer score ${computetS}) `;
     }
 
 }
