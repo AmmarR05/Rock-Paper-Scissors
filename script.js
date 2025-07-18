@@ -7,69 +7,57 @@ function getComputerChoice() {
     return "scissors";
 }
 
-
-function getHumanChoice() {
-    while (true) {
-        let humanChoice = prompt("Enter your choice (rock, paper, or scissors):");
-        humanChoice = humanChoice.toLowerCase();
-        if (["rock", "paper", "scissors"].includes(humanChoice)) {
-            return humanChoice;
-        }
-        alert("Invalid input. Please choose only: rock, paper, or scissors.");
-    }
-}
+let btuR = document.querySelector(".bt1");
+let btuP = document.querySelector(".bt2");
+let btuS = document.querySelector(".bt3");
+btuR.addEventListener("click", () => playGame("rock"));
+btuP.addEventListener("click", () => playGame("paper"));
+btuS.addEventListener("click", () => playGame("scissors"));
 
 
-let humanScore = 0;
-let computerScore = 0;
-
-
+let humanS = 0;
+let computetS = 0;
+let p = document.querySelector('p');
+let div = document.querySelector(".div1")
 function playRound(humanChoice, computerChoice) {
-    if (humanChoice === computerChoice) {
-        return `It's a draw! ${humanChoice} equals ${computerChoice}.`;
-    } else if (
-        humanChoice === "paper" && computerChoice === "rock" ||
-        humanChoice === "rock" && computerChoice === "scissors" ||
-        humanChoice === "scissors" && computerChoice === "paper"
-    ) {
-        humanScore++;
-        return `You win! ${humanChoice} beats ${computerChoice}.`;
-    } else {
-        computerScore++;
-        return `You lose! ${computerChoice} beats ${humanChoice}.`;
-    }
-}
+        if (humanChoice === computerChoice) {
+            p.textContent = `It's a draw! ${humanChoice} equals ${computerChoice}.`;
+            div.appendChild(p);
+        } else if (humanChoice === "paper" && computerChoice === "rock" || humanChoice === "rock" && computerChoice === "scissors" || humanChoice === "scissors" && computerChoice === "paper") {
+            computetS++;
+            p.textContent = `You win! ${humanChoice} beats ${computerChoice}.`;
+            div.appendChild(p);
+        }
+
+        else {
+            p.textContent = `You lose! ${computerChoice} beats ${humanChoice}.`;;
+            div.appendChild(p);
 
 
-function playGame() {
-    humanScore = 0;
-    computerScore = 0;
-    let numberOfRound;
-        while(true){
-             numberOfRound = +prompt("Please enter how many rounds you'd like to play.")
-            if (numberOfRound < 0 || isNaN(numberOfRound)) {
-                alert("Oops! Thats not a valid number. Try again with a positive number.")
-            }
-            else {
-                break;
-            }
         }
-    let i = 1 ;
-    while(i <= numberOfRound) {
-        console.log(`Round ${i}: ` + playRound(getHumanChoice(), getComputerChoice()) + ` (Your score: ${humanScore}, Computer score: ${computerScore})`);
-        if (humanScore === Math.floor((numberOfRound / 2)) + 1 || computerScore === Math.floor((numberOfRound / 2)) + 1) {
-            break;
-        }
-        i++;
-    }
-    if (humanScore > computerScore) {
-        console.log(`You are the winner! Final score: You (${humanScore}) - Computer (${computerScore})`);
-    } else if (humanScore < computerScore) {
-        console.log(`You lost! Final score: You (${humanScore}) - Computer (${computerScore})`);
-    } else {
-        console.log(`The game is a draw. Final score: You (${humanScore}) - Computer (${computerScore})`);
-    }
     
+
 }
 
-playGame();
+let numOFRound = 5;
+let numOfClick = 0;
+
+let rem = document.querySelector(".reset-btn")
+rem.addEventListener("click", () => { numOfClick = 0, p.textContent ="Play smart! 5 rounds of Rock, Paper, Scissors ahead."}) 
+
+function playGame(choice) {
+    
+    if (numOFRound > numOfClick){
+        numOfClick++;
+        playRound(choice, getComputerChoice());
+    }
+    else {
+        if(humanS>computetS)
+            p.textContent = `you win. the finle score (your score ${humanS} , coumputer score ${computetS}) `;
+        else if(computetS>humanS)
+            p.textContent = `you lose. the finle score (your score ${humanS} , coumputer score ${computetS}) `;
+        else 
+            p.textContent = `its draw . the finle score (your score ${humanS} , coumputer score ${computetS}) `;
+    }
+
+}
